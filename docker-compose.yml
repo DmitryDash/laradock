@@ -9,6 +9,8 @@ networks:
 volumes:
   mysql:
     driver: ${VOLUMES_DRIVER}
+  mysql_slave:
+    driver: ${VOLUMES_DRIVER}
   percona:
     driver: ${VOLUMES_DRIVER}
   mssql:
@@ -277,6 +279,26 @@ services:
         - ${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
       ports:
         - "${MYSQL_PORT}:3306"
+      networks:
+        - backend
+
+## MySQL Slave ################################################
+    mysql_slave:
+      build:
+        context: ./mysql
+        args:
+          - MYSQL_VERSION=${MYSQL_VERSION}
+      environment:
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+        - MYSQL_USER=${MYSQL_USER}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - TZ=${WORKSPACE_TIMEZONE}
+      volumes:
+        - ${DATA_PATH_HOST}/mysql_slave:/var/lib/mysql
+        - ${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
+      ports:
+        - "${MYSQL_SLAVE_PORT}:3306"
       networks:
         - backend
 

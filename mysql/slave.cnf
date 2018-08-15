@@ -8,15 +8,16 @@
 [mysqld]
 sql-mode="STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
 character-set-server=utf8
-bind-address = 0.0.0.0
 
-# For Master
+# For Slave
 #
-# server-id=1
+# server-id=2
 # log-bin=mysql-bin
 # log-slave-updates=1
-# datadir=/var/lib/mysql/
-# innodb_flush_log_at_trx_commit = 2
-# innodb_flush_method = O_DIRECT
+# auto_increment_increment=2
+# auto_increment_offset=2
+# datadir=/var/lib/mysql
+# read-only=1
+# slave-skip-errors = 1062
 # skip-host-cache
 # skip-name-resolve
