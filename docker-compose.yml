@@ -101,6 +101,7 @@ services:
           - BLACKFIRE_CLIENT_TOKEN=${BLACKFIRE_CLIENT_TOKEN}
       volumes:
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
+        - ./workspace/entrypoint.sh:/home/laradock/entrypoint.sh
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
       ports:
@@ -111,6 +112,7 @@ services:
       networks:
         - frontend
         - backend
+      working_dir: /var/www/html
 
 ### PHP-FPM ##############################################
     php-fpm:
