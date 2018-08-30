@@ -16,10 +16,9 @@
 #     mysql -u root -p < /docker-entrypoint-initdb.d/createdb.sql
 #
 
+CREATE DATABASE IF NOT EXISTS `ramzy_ride` COLLATE 'utf8_general_ci' ;
+
 GRANT ALL PRIVILEGES ON *.* TO 'default'@'localhost' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON *.* TO 'default'@'%' WITH GRANT OPTION;
-
-CREATE DATABASE IF NOT EXISTS `ramzy_ride` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `ramzy_ride`.* TO 'default'@'%' ;
 
 FLUSH PRIVILEGES ;
